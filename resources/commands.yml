@@ -1,0 +1,40 @@
+commands:
+  - command: textbf
+    params:
+      - format: required
+        type: parsed
+    implementation:
+      method: internal:font
+      arguments:
+        - series
+        - ${font.series.bold}
+        - $1
+  - command: textit
+    params:
+      - format: required
+        type: parsed
+    implementation:
+      method: internal:font
+      arguments:
+        - shape
+        - ${font.shape.italic}
+        - $1
+  - command: textsl
+    params:
+      - format: required
+        type: parsed
+    implementation:
+      method: internal:font
+      arguments:
+        - shape
+        - ${font.slanted}
+        - $1
+  - command: textmd
+    params:
+      - format: required
+        type: parsed
+    implementation:
+      method: internal:font
+      arguments:
+        - ${font.series.medium}
+        - $1

@@ -2,14 +2,16 @@ use std::fmt::{Display, Formatter};
 use std::rc::Rc;
 use crate::commands::{Command, Environment};
 
-#[derive(PartialEq, Debug)]
+#[derive(Debug, PartialEq)]
 pub enum Token {
     ParsedText(String),
     Math(String),
     Command(Rc<Command>, Vec<Token>),
     Environment(Rc<Environment>, Vec<Token>, Vec<Token>),
     RawText(String),
-    Tokens(Vec<Token>)
+    Bgroup,
+    Egroup,
+    Tokens(Vec<Token>) // Q: Does this make sense? Yes, for arguments to commands.
 }
 
 impl Display for Token {
@@ -23,8 +25,14 @@ impl Display for Token {
             Token::Environment(env, _args, _body) => write!(f, "\\begin{{{}}}…\\end{{{}}}", env.name, env.name),
             Token::RawText(text) => write!(f, "{}", text),
             Token::Tokens(tokens) => {
-                write!(f, "[[token list]]")
+                write!(f, "[[");
+                for token in tokens {
+                    write!(f, "{}", token);
+                }
+                write!(f, "]]")
             },
+            Token::Bgroup => write!(f, "bgroup"),
+            Token::Egroup => write!(f, "egroup"),
         }
     }
 }

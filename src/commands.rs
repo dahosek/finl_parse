@@ -1,5 +1,5 @@
 
-#[derive(PartialEq, Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Command {
     pub name: String,
     pub parameters: Vec<(ParameterFormat, ParameterType)>,
@@ -24,14 +24,15 @@ impl Command {
     
 }
 
-#[derive(PartialEq, Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Environment {
     pub name: String,
     pub args: Vec<(ParameterFormat, ParameterType)>,
-    pub bodyType: ParameterType
+    pub body_type: ParameterType
     // TODO: Function pointer for execution
 }
 
+#[derive(Debug, PartialEq)]
 pub enum ParameterFormat {
     Star,
     Required,
@@ -40,7 +41,8 @@ pub enum ParameterFormat {
     ArbitraryDelimiters,
 }
 
-pub enum ParamterType {
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum ParameterType {
     ParsedTokens,
     VerbatimText,
     Boolean,
