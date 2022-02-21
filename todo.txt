@@ -1,0 +1,2 @@
+Currently moving Location to inside Token and FinlError. Also adding a String to FinlError for the line being
+interpretted
